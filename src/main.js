@@ -16,8 +16,6 @@ import Vuetify from 'vuetify';
 // main.styl
 import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify);
-//引用strage,configreact
-import storage from "../static/storage/storage";
 //接口配置
 import config from "../static/config";
 //安装 npm install stylus stylus-loader --save-dev
