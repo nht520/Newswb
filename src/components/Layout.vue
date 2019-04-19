@@ -23,7 +23,7 @@
           <v-layout row wrap class="newsimg" >
               <v-flex xs4 class="newstitle">
                 <v-img
-                  :src="imgURL+'static/img/1555665064924.jpg'"
+                  :src="newsImg(item.newsImgUrl)"
                 ></v-img>
               </v-flex>
               <v-flex xs8>
@@ -51,13 +51,16 @@
       data() {
           return {
             title:"首页",
-            imgURL:"http://192.168.5.2:9090/api/",
             titleList:[],
             categoryId:0,
             list:[ ],
           }
         },
       methods:{
+          //img地址拼接
+          newsImg(url){
+            return (window.g.imgapi+"/"+url);
+          },
           //获取详情
           tabChange(key){
             // console.log(api+"=============")
