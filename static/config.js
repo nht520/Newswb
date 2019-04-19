@@ -1,5 +1,5 @@
 
-const api = "http://192.168.5.41:9090/api";
+const api = "http://192.168.5.2:9090/api";
 window.g = {
   AXIOS_TIMEOUT: 10000,
   login:api+"/newsUser/login",

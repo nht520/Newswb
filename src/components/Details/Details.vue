@@ -20,6 +20,39 @@
             <p> {{ list.newsContent }} </p>
           </v-flex>
         </v-layout>
+<!--        赞举报-->
+        <v-layout class="report" >
+          <v-flex flex xs3 offset-xs7  @click="pinglun" >
+            <v-icon class="praIse" :class="yanse">favorite</v-icon>
+            {{praise}}
+          </v-flex>
+          <v-flex flex xs2  >
+            <v-icon>favorite</v-icon>
+            <v-dialog v-model="dialog" persistent max-width="600px">
+            <template v-slot:activator="{ on }">
+              <v-btn class="inform" color="writh" dark v-on="on">举报</v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">请输入你的不满</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container grid-list-md>
+                    <v-text-field
+                      v-model="dissatisfied"
+                      label="请输入你的不满"
+                    ></v-text-field>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" flat @click="dialog = false">关闭</v-btn>
+                <v-btn color="blue darken-1" flat @click="dialogSubmit">提交</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          </v-flex>
+        </v-layout>
         <!--      评论-->
         <v-layout class="NewsTitle">
           <v-flex xs12 order-lg2>
@@ -49,7 +82,7 @@
           dark
         >
           <v-layout class="comment">
-            <v-flex xs8 >
+            <v-flex xs12 >
               <v-text-field
                 flat
                 label="我来说两句"
@@ -60,10 +93,6 @@
             </v-flex>
             <v-flex xs2 class="dot">
                <span class="fabu"  @click="fabuChange">发布</span>
-            </v-flex>
-            <v-flex xs2 class="praise" @click="pinglun">
-              <v-icon>favorite_bord</v-icon>
-              <p style="text-align: center">点赞</p>
             </v-flex>
 <!--            <v-flex xs2 class="praise" @click="report">-->
 <!--              <v-icon>send</v-icon>-->
@@ -89,10 +118,13 @@
       data(){
           return{
             title:"详情",
+            yanse:"gray",
             list:[],
             isPrais:false,
             findList:[],
             dialog: false,
+            dissatisfied:"",
+            praise:"",
             comment:"",
             src:require("../../../static/bj.jpg"),
             commtTitle:"用户昵称",
@@ -146,9 +178,25 @@
                 console.log(err)
               })
             },
+           //举报
+          dialogSubmit(){
+              const userId = storage.get("user");
+              const newsId = this.$route.params.id;
+              const api = window.g.newsReport;
+              const prams= new URLSearchParams();
+                    prams.append("reportContent",this.dissatisfied);
+                    prams.append("reportNewsId",newsId);
+                    prams.append("reportUserId",userId.id);
+                    Axios.post(api,prams).then((res)=>{
+                       if (res.data.status === "ok"){
+                         this.dialog = false
+                       }
+                    }).catch((err)=>{
+                       console.log(err);
+                    })
+          },
            //点赞
            pinglun(){
-
               if(this.isPrais === false){
                 var aid=this.$route.params.id;
                 const userId = storage.get("user");
@@ -161,6 +209,7 @@
                 const api = window.g.newsPraise;
                 Axios.get(api,param).then((res)=>{
                   console.log(res)
+                  this.isPraise();
                 },(err)=>{
                   console.log(err)
                 })
@@ -181,6 +230,7 @@
             const api = window.g.reduceNewsPraise;
             Axios.get(api,param).then((res)=>{
               console.log(res+"----")
+              this.isPraise();
             },(err)=>{
               console.log(err)
             })
@@ -197,7 +247,14 @@
             };
             const api = window.g.isPraise;
             Axios.get(api,param).then((res)=>{
-              console.log(res);
+              console.log(res.data);
+              if ( res.data.data === true){
+                  this.yanse="redGray";
+                  this.praise="取消"
+              }else {
+                this.yanse="gray";
+                this.praise="点赞"
+              }
               this.isPrais=res.data.data;
             },(err)=>{
               console.log(err)
@@ -235,6 +292,16 @@
    height 150px
   /*.dialogModel .v-dialog__content*/
   /* background #00000087*/
+  .headline
+   font-size 18px !important
+  .inform
+    margin 0 !important
+    min-width 0 !important
+    padding 0 !important
+    height 0 !important
+    color #212121 !important
+    box-shadow none !important
+    vertical-align initial
   & .titleH3
    font-weight bold
    font-size 18px
@@ -247,6 +314,12 @@
     text-align left
     font-size 14px
     margin 3% 0%
+  .report .v-icon
+    font-size 17px
+  .gray
+    color #cccccc
+  .redGray
+    color #f00 !important
   .right
     text-align right
   .banner .v-carousel
@@ -260,8 +333,6 @@
    border-radius 100%
   & .comtThree
     font-weight bold
-  .comment
-    padding 2% 0% 0% 0%
   .comment .comtFor
       display -webkit-box
       -webkit-box-orient vertical
