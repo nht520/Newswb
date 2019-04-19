@@ -23,7 +23,7 @@
           <v-layout row wrap class="newsimg" >
               <v-flex xs4 class="newstitle">
                 <v-img
-                  :src="src"
+                  :src="imgURL+'static/img/1555665064924.jpg'"
                 ></v-img>
               </v-flex>
               <v-flex xs8>
@@ -51,7 +51,7 @@
       data() {
           return {
             title:"首页",
-            src:require("../../static/bj.jpg"),
+            imgURL:"http://192.168.5.2:9090/api/",
             titleList:[],
             categoryId:0,
             list:[ ],
