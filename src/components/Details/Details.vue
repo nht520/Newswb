@@ -70,7 +70,7 @@
 <!--            ></v-img>-->
 <!--          </v-flex>-->
           <v-flex xs12>
-            <h3 class="comtThree">{{item.newsUserId}}</h3>
+            <h3 class="comtThree">{{item.userName}}</h3>
             <p class="comtFor">{{item.newsDiscussInfo}}</p>
           </v-flex>
         </v-layout>
@@ -156,6 +156,8 @@
               };
               const api = window.g.find;
               Axios.get(api,param).then((res)=>{
+                console.log("+++++++++++++")
+                console.log(res)
                 this.findList = res.data.records;
               },(err)=>{
                 console.log(err)
@@ -164,13 +166,12 @@
             //提交评论
             fabuChange(){
               const userId = storage.get("user");
-              console.log(this.list.id+"=====");
-              console.log(this.comment+"___________");
               const param = new URLSearchParams();
                     param.append("newsUserId",userId.id);
                     param.append("newsInfoId",this.list.id);
                     param.append("newsDiscussInfo",this.comment);
               const api = window.g.commine;
+              this.comment= undefined;
               Axios.post(api,param).then((res)=>{
                 this.find();
                 // console.log(res);
@@ -247,7 +248,6 @@
             };
             const api = window.g.isPraise;
             Axios.get(api,param).then((res)=>{
-              console.log(res.data);
               if ( res.data.data === true){
                   this.yanse="redGray";
                   this.praise="取消"

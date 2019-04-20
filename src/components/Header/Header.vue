@@ -15,7 +15,7 @@
 <!--                <v-icon>favorite</v-icon>-->
 <!--              </v-btn>-->
               <v-btn icon>
-                <v-icon>more_vert</v-icon>
+                <v-icon @click="removerUsram">more_vert</v-icon>
               </v-btn>
             </v-toolbar>
           </v-card>
@@ -25,13 +25,20 @@
 </template>
 
 <script>
+    import storage from "../../../static/storage/storage"
     export default {
         name: "Header",
         props:['newsTitle'],
-      data(){
+        data(){
           return{
             class:"elevation-0"
 
+          }
+        },
+        methods:{
+          removerUsram(){
+            storage.remove("user");
+            this.$router.push({path:"/"})
           }
         }
     }
