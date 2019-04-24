@@ -85,27 +85,27 @@
    padding 3%
    font-size 20px
    font-weight bold
-  & h1
-    text-align center
-    margin-top  28%
-    color #292b33
-    font-weight bold
-    font-size 26px
-    margin-bottom 10%
+   & h1
+     text-align center
+     margin-top  28%
+     color #292b33
+     font-weight bold
+     font-size 26px
+     margin-bottom 10%
   .mu-demo-form
     width 100%
     max-width 460px
-  & .mu-text-field-input
+  .mu-demo-form .mu-text-field-input
       /*background #f8f8f8*/
       border-radius -2%
       text-align center
-  & p
+  .mu-demo-form p
       text-align right
       font-size 14px
       color #8f8f8f
   .logincontent
       margin-top 16%
-  & .mu-button
+  .logincontent .mu-button
       margin 0px !important
       background #292b33
       height 50px

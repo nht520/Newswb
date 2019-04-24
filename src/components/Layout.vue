@@ -59,7 +59,7 @@
       methods:{
           //img地址拼接
           newsImg(url){
-            return (window.g.imgapi+"/"+url);
+            return (window.g.urlImg+"/"+url);
           },
           //获取详情
           tabChange(key){
@@ -105,6 +105,7 @@
           },
       },
       mounted() {
+
           this.newsTitle();
           this.tabChangeone();
       }
@@ -121,12 +122,12 @@
      color #000000
   .content
      padding 3%
-  .content.left
-    width 40%
-    float left
-  .content.right
-    width 60%
-    float right
+  .left
+     float left
+     font-size 12px
+  .right
+     float right
+     font-size 12px
   .dtaitls
     width 100%
     height auto
@@ -139,14 +140,14 @@
     -webkit-box-orient vertical
     -webkit-line-clamp 2
     overflow hidden
-  & .v-image
+  .newstitle .v-image
       width 100%
       height 66px
       border-radius 3px
-  & .left
+  .newstitle .left
     text-align left
     font-size 12px
-  & .right
+  .newstitle .right
     text-align right
     font-size 12px
 </style>

@@ -15,7 +15,7 @@
               </v-flex>
             </v-layout>
             <v-img
-              :src="src"
+              :src="newsImg(list.newsImgUrl)"
             ></v-img>
             <p> {{ list.newsContent }} </p>
           </v-flex>
@@ -146,6 +146,10 @@
                 console.log(err)
               })
             },
+            //img地址拼接
+            newsImg(url){
+              return (window.g.urlImg+"/"+url);
+            },
             //查询评论（
             find(){
               var aid=this.$route.params.id;
@@ -230,7 +234,6 @@
              };
             const api = window.g.reduceNewsPraise;
             Axios.get(api,param).then((res)=>{
-              console.log(res+"----")
               this.isPraise();
             },(err)=>{
               console.log(err)
@@ -302,14 +305,14 @@
     color #212121 !important
     box-shadow none !important
     vertical-align initial
-  & .titleH3
+  .titleH3
    font-weight bold
    font-size 18px
-  & .v-image__image
+  .inform .v-image__image
      width 100%
-  & h3
+  .inform h3
     margin 2% 0%
-  & p
+  .DetailsContent p
     line-height 25px
     text-align left
     font-size 14px
@@ -331,29 +334,27 @@
    width 40px
    height 40px
    border-radius 100%
-  & .comtThree
-    font-weight bold
-  .comment .comtFor
+  .comtFor
       display -webkit-box
       -webkit-box-orient vertical
       -webkit-line-clamp 2
       line-height 20px
-      color #505050
+      margin 3% 0%
+      color #000000
       overflow hidden
-  & .v-input__slot
+  .comment .v-input__slot
     margin-bottom 0px
-  & .praise
+  .comment  .praise
     padding-left 6%
     padding-top 1%
   .praise .v-icon
     color #FFFFFF !important
-
-  & .dot
+  .comment  .dot
     background #FFFFFF
     line-height 48px
     height: 48px;
     text-align center
-  & .fabu
+  .comment  .fabu
     color red
   .pinglun
     position fixed
